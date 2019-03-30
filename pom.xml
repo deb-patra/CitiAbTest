@@ -13,9 +13,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CitiAbTest</name>
 	<description>Citi Ab Test</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+	<!--<packaging>war</packaging>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
