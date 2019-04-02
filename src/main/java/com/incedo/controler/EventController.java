@@ -49,6 +49,12 @@ public class EventController {
 	@Value("${gridwall.page}")
     private String griwallPage;
 	
+	@Value("${layer.id}")
+    private String layerId;
+	
+	@Value("${channel.id}")
+    private String channelId;
+	
 	@Value("${layer.id.ui}")
     private String layerName;
 	
@@ -78,7 +84,7 @@ public class EventController {
     	System.out.println("With in get gridwall details");
     	String userId = request.getParameter("userId");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, pdpPage, "gridwall", "grid_wall", null);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -98,7 +104,7 @@ public class EventController {
     public String getGridwallPage(HttpServletRequest request, @RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent, @PathVariable String userId, Model model) {
     	
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, pdpPage, "gridwall", "grid_wall", null);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -112,7 +118,7 @@ public class EventController {
     public String getPDPPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get PDP page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, upgradeLine, "pdp", "pdp", "/getGridwallPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -125,7 +131,7 @@ public class EventController {
     public String getUpgradeLinePage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get upgrade line page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, deviceSelection, "upgrade", "upgradeline", "/getPdpPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -139,7 +145,7 @@ public class EventController {
     	System.out.println("With in get device selection page details");
     	
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, protection, "deviceselection", "deviceselection", "/getUpgradePage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -153,7 +159,7 @@ public class EventController {
     public String getProtectionPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get protection page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, accessoryBundle, "protection", "protection", "/getDeviceSelectionPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -166,7 +172,7 @@ public class EventController {
     public String getAccessoryBundlePage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get accessory bundle page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, offerPage, "accessorybundle", "acessorybundle", "/getProtectionPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -179,7 +185,7 @@ public class EventController {
     public String getOfferPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get Offer page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, cartPage, "offerpage", "offer", "/getAccessoryBundlePage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -192,7 +198,7 @@ public class EventController {
     public String getCartPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get cart details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, checkoutPage, "cart", "cart","/getOfferPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -205,7 +211,7 @@ public class EventController {
     public String getCheckoutPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get checkout details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerName, channelName);
+    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		setModelAttribute(model, eventJson, userId, null, "checkout", "checkout", "/getCartPage/");
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -215,8 +221,11 @@ public class EventController {
     }
     
     public void setModelAttribute(Model model, String eventJson, String userId, String nextPage, String pageHeading, String stage, String previousPage) {
-		int channelId = eventUtilService.getChannelIdFromAPI(eventJson);
-		int layerId = eventUtilService.getLayerIdFromAPI(eventJson);
+		//int channelId = eventUtilService.getChannelIdFromAPI(eventJson);
+		//int layerId = eventUtilService.getLayerIdFromAPI(eventJson);
+		
+		int channelIdPush = Integer.parseInt(channelId);
+		int layerIdPush = Integer.parseInt(layerId);
 		int variantId = eventUtilService.getVariantIdFromAPI(eventJson);
 		String eventColor = null;
 		String color = eventUtilService.getEventColor(eventJson);
@@ -246,6 +255,6 @@ public class EventController {
         		model.addAttribute("previousPage", previousPage+userId);
         	}
         }
-        eventService.pushNewEvent(userId, variantId, expId, layerId, channelId, stage);
+        eventService.pushNewEvent(userId, variantId, expId, layerIdPush, channelIdPush, stage);
 	}
 }

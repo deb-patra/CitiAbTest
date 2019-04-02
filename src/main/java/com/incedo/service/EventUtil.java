@@ -79,8 +79,8 @@ public class EventUtil {
 	
 	public String getEventColor(String jsonString) {
 		JSONObject obj = new JSONObject(jsonString);
-		if(obj.has("experimentToken")) {
-			String experimentToken = obj.get("experimentToken").toString();
+		if(obj.has("variant_token")) {
+			String experimentToken = obj.get("variant_token").toString();
 			//experimentToken = "default";
 			if(!StringUtils.isEmpty(experimentToken)) {
 				if(experimentToken.toLowerCase().contains("red")) {

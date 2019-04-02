@@ -14,7 +14,7 @@ public class EventSubmitRequestVO {
 	private int exp_id;
 	private int layer_id;
 	private int channel_id;
-	private String time;
+	private int time;
 	private String stage;
 	/**
 	 * @return the user_id
@@ -91,13 +91,13 @@ public class EventSubmitRequestVO {
 	/**
 	 * @return the time
 	 */
-	public String getTime() {
+	public int getTime() {
 		return time;
 	}
 	/**
 	 * @param time the time to set
 	 */
-	public void setTime(String time) {
+	public void setTime(int time) {
 		this.time = time;
 	}
 	/**

@@ -6,8 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,8 +37,13 @@ public class EventServiceImpl implements EventService {
 		//log.debug("EventServiceImpl : getEventId : userId - "+userId);
 		URL url;
 		String jsonString = null;
-		String apiUrl = serviceApi +"?channelId="+channelId+"&layerId="+layerId+"&userId="+userId;
+		String apiUrl = serviceApi +"?channel_id="+channelId+"&layer_id="+layerId+"&user_id="+userId;
 		System.out.println("apiUrl ::"+apiUrl);
+		/*return "{\n" + 
+				"    \"experimentToken\": \"channel_india-mobile-delhi_layer_india-mobile-layer-ui-layer_expt_india-mobile-delhi-color-experiment_var_green\",\n" + 
+				"    \"bucket\": \"experiment-whitelist\",\n" + 
+				"    \"exp_id\": null\n" + 
+				"}";*/
 		try {
 			url = new URL(apiUrl);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -118,12 +122,6 @@ public class EventServiceImpl implements EventService {
 
 		}
 
-	public void pushNewEvent(String userId, String variantId, String expId, String layerId, String channelId,
-			String stage) {
-		
-		
-	}
-
 	@Override
 	public void pushNewEvent(String userId, int variantId, int expId, int layerId, int channelId, String stage) {
 		UUID uuid = Generators.timeBasedGenerator().generate();
@@ -136,7 +134,12 @@ public class EventServiceImpl implements EventService {
 		eventSubmit.setLayer_id(layerId);
 		eventSubmit.setChannel_id(channelId);
 		eventSubmit.setStage(stage);
-		eventSubmit.setTime(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
+		Instant instant = Instant.now();
+		Long timeStampSeconds = instant.getEpochSecond();
+		System.out.println("now ::"+timeStampSeconds.intValue());
+		if(null != timeStampSeconds) {
+			eventSubmit.setTime(timeStampSeconds.intValue());
+		}
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			String requestJSON = mapper.writeValueAsString(eventSubmit);
