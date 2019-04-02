@@ -5,7 +5,7 @@
 		<form action="/getGridwall" method="post">
 			<section class="container-section">
 				<div style="background-color:grey; width:70%">
-		        	<h1>Home Page</h1>
+		        	<h1>Home Page Updated</h1>
 			    </div>
 			    <div style="background-color:grey; width:70%; font-style: italic; font-size:20px">
 			        <p class="oblique">Welcome </p>
