@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.incedo.commandVOs.EventSubmitRequestVO;
+import com.incedo.commandVOs.ExperimentVariantVo;
 import com.incedo.service.EventService;
 import com.incedo.service.EventUtil;
 
@@ -84,8 +86,19 @@ public class EventController {
     	System.out.println("With in get gridwall details");
     	String userId = request.getParameter("userId");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, pdpPage, "gridwall", "grid_wall", null);
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "gridwall");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "gridwall");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "gridwall");
+    		} else {
+    			showNormalHeader(model, "gridwall");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, pdpPage, "gridwall", "grid_wall", null);
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -102,10 +115,27 @@ public class EventController {
     
     @RequestMapping("/getGridwallPage/{userId}")
     public String getGridwallPage(HttpServletRequest request, @RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent, @PathVariable String userId, Model model) {
-    	
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, pdpPage, "gridwall", "grid_wall", null);
+    		// Get experiment variant from service API
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		
+    		// Display header info
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "gridwall");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "gridwall");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "gridwall");
+    		} else {
+    			showNormalHeader(model, "gridwall");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, pdpPage, "gridwall", "grid_wall", null);
+    		
+    		//Create new experiment VO
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
+    		
+    		// Push new event
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -118,8 +148,19 @@ public class EventController {
     public String getPDPPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get PDP page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, upgradeLine, "pdp", "pdp", "/getGridwallPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "pdp");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "pdp");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "pdp");
+    		} else {
+    			showNormalHeader(model, "pdp");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, upgradeLine, "pdp", "pdp", "/getGridwallPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "pdp");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -131,8 +172,19 @@ public class EventController {
     public String getUpgradeLinePage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get upgrade line page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, deviceSelection, "upgrade", "upgradeline", "/getPdpPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "upgrade");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "upgrade");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "upgrade");
+    		} else {
+    			showNormalHeader(model, "upgrade");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, deviceSelection, "upgrade", "upgradeline", "/getPdpPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "upgradeline");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -145,8 +197,19 @@ public class EventController {
     	System.out.println("With in get device selection page details");
     	
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, protection, "deviceselection", "deviceselection", "/getUpgradePage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "deviceselection");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "deviceselection");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "deviceselection");
+    		} else {
+    			showNormalHeader(model, "deviceselection");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, protection, "deviceselection", "deviceselection", "/getUpgradePage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "deviceselection");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -159,8 +222,19 @@ public class EventController {
     public String getProtectionPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get protection page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, accessoryBundle, "protection", "protection", "/getDeviceSelectionPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "protection");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "protection");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "protection");
+    		} else {
+    			showNormalHeader(model, "protection");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, accessoryBundle, "protection", "protection", "/getDeviceSelectionPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "protection");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -172,8 +246,19 @@ public class EventController {
     public String getAccessoryBundlePage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get accessory bundle page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, offerPage, "accessorybundle", "acessorybundle", "/getProtectionPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "accessorybundle");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "accessorybundle");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "accessorybundle");
+    		} else {
+    			showNormalHeader(model, "accessorybundle");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, offerPage, "accessorybundle", "acessorybundle", "/getProtectionPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "acessorybundle");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -185,8 +270,19 @@ public class EventController {
     public String getOfferPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get Offer page details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, cartPage, "offerpage", "offer", "/getAccessoryBundlePage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "offerpage");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "offerpage");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "offerpage");
+    		} else {
+    			showNormalHeader(model, "offerpage");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, cartPage, "offerpage", "offer", "/getAccessoryBundlePage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "offer");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -198,8 +294,19 @@ public class EventController {
     public String getCartPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get cart details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, checkoutPage, "cart", "cart","/getOfferPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "cart");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "cart");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "cart");
+    		} else {
+    			showNormalHeader(model, "cart");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, checkoutPage, "cart", "cart","/getOfferPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "cart");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -211,8 +318,19 @@ public class EventController {
     public String getCheckoutPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get checkout details");
     	if(!StringUtils.isEmpty(userId)) {
-    		String eventJson = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		setModelAttribute(model, eventJson, userId, null, "checkout", "checkout", "/getCartPage/");
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    			showGreenHeader(model, "checkout");
+    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
+    			showBlueHeader(model, "checkout");
+    		}else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "checkout");
+    		} else {
+    			showNormalHeader(model, "checkout");
+    		}
+    		setModelAttribute(model, experimentVariantVo, userId, null, "checkout", "checkout", "/getCartPage/");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "checkout");
+    		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
     		return "home";
@@ -220,33 +338,49 @@ public class EventController {
         return "checkout";
     }
     
-    public void setModelAttribute(Model model, String eventJson, String userId, String nextPage, String pageHeading, String stage, String previousPage) {
-		//int channelId = eventUtilService.getChannelIdFromAPI(eventJson);
-		//int layerId = eventUtilService.getLayerIdFromAPI(eventJson);
-		
-		int channelIdPush = Integer.parseInt(channelId);
-		int layerIdPush = Integer.parseInt(layerId);
-		int variantId = eventUtilService.getVariantIdFromAPI(eventJson);
+    public void showBlueHeader(Model model, String pageHeading) {
 		String eventColor = null;
-		String color = eventUtilService.getEventColor(eventJson);
+		String color = "blue";
 		if(!StringUtils.isEmpty(color) && "default".equals(color)) {
 			eventColor = "default";
 		} else {
 			eventColor = pageHeading + "_" + color;
 		}
-		int expId = eventUtilService.getExperimentId(eventJson);
-		String expToken = eventUtilService.getExperimentToken(eventJson);
-		String bucket = eventUtilService.getBucket(eventJson);
-		System.out.println("expToken: " + expToken);
-        if(!StringUtils.isEmpty(expToken)) {
+		model.addAttribute("eventColor", eventColor);
+    }
+    public void showRedHeader(Model model, String pageHeading) {
+		String eventColor = null;
+		String color = "red";
+		if(!StringUtils.isEmpty(color) && "default".equals(color)) {
+			eventColor = "default";
+		} else {
+			eventColor = pageHeading + "_" + color;
+		}
+		model.addAttribute("eventColor", eventColor);
+    }
+    public void showGreenHeader(Model model, String pageHeading) {
+		String eventColor = "green";
+		String color = "green";
+		if(!StringUtils.isEmpty(color) && "default".equals(color)) {
+			eventColor = "default";
+		} else {
+			eventColor = pageHeading + "_" + color;
+		}
+		model.addAttribute("eventColor", eventColor);
+    }
+    
+    public void showNormalHeader(Model model, String pageHeading) {
+    	showBlueHeader(model, pageHeading);
+    }
+    
+    public void setModelAttribute(Model model, ExperimentVariantVo experimentVariantVo, String userId, String nextPage, String pageHeading, String stage, String previousPage) {
+    	if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
         	model.addAttribute("userId", userId);
-        	model.addAttribute("eventColor", eventColor);
-        	model.addAttribute("expToken", expToken);
-        	model.addAttribute("expId", expId);
-        	model.addAttribute("bucket", bucket);
+        	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
+        	model.addAttribute("expId", experimentVariantVo.getExpId());
+        	model.addAttribute("expName", experimentVariantVo.getExptName());
         	model.addAttribute("channelName", channelName);
         	model.addAttribute("layerName", layerName);
-        	model.addAttribute("userId", userId);
         	model.addAttribute("pageHeading", pageHeading);
         	if(!StringUtils.isEmpty(nextPage)) {
         		model.addAttribute("nextPage", nextPage+"/"+userId);
@@ -255,6 +389,5 @@ public class EventController {
         		model.addAttribute("previousPage", previousPage+userId);
         	}
         }
-        eventService.pushNewEvent(userId, variantId, expId, layerIdPush, channelIdPush, stage);
-	}
+    }
 }

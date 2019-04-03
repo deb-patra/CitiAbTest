@@ -13,7 +13,7 @@
 			             <th>Channel Name</th>
 			             <th>Experiment Token</th>
 			             <th>Experiment Id</th>
-			             <th>Bucket</th>
+			             <th>Experiment Name</th>
 			         </tr>
 			         </thead>
 			         <tr>
@@ -22,7 +22,7 @@
 			             <td>${channelName}</td>
 			             <td>${expToken}</td>
 			             <td>${expId}</td>
-			             <td>${bucket}</td>
+			             <td>${expName}</td>
 			         </tr>
 			        </table>
 			    </div>

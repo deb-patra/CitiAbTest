@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.incedo.commandVOs.ExperimentVariantVo;
+
 import net.sf.uadetector.ReadableDeviceCategory;
 import net.sf.uadetector.ReadableUserAgent;
 import net.sf.uadetector.UserAgentStringParser;
@@ -201,5 +203,21 @@ public class EventUtil {
 			System.out.println("IOException ::"+e.getMessage());
 		}	
 		return idMap;
+	}
+	
+	public String incedoGetExperimentName(ExperimentVariantVo experimentVariantVo) {
+		String variantToken = experimentVariantVo.getVariantToken();
+		if(!StringUtils.isEmpty(variantToken)) {
+			if(variantToken.toLowerCase().contains("red")) {
+				return "UI_RED_EXP";
+			} else if(variantToken.toLowerCase().contains("green")) {
+				return "UI_GREEN_EXP";
+			}else if(variantToken.toLowerCase().contains("blue")) {
+				return "UI_BLUE_EXP";
+			}else if(variantToken.toLowerCase().contains("control")) {
+				return "UI_BLUE_EXP";
+			}
+		}
+		return "UI_BLUE_EXP";
 	}
 }

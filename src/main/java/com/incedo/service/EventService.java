@@ -1,10 +1,15 @@
 package com.incedo.service;
 
+import com.incedo.commandVOs.EventSubmitRequestVO;
+import com.incedo.commandVOs.ExperimentVariantVo;
+
 /**
  * Created by Deb
  */
 public interface EventService {
-	String getEventJsonFromServiceAPI(String userId, String layerId, String channelId);
+	ExperimentVariantVo getEventJsonFromServiceAPI(String userId, String layerId, String channelId);
 	
-	void pushNewEvent(String userId, int variantId, int expId, int layerId, int channelId, String stage);
+	public EventSubmitRequestVO incedoEvent(String userId, int variantId, int expId, String layerId, String channelId, String stage);
+
+	void pushNewEvent(EventSubmitRequestVO eventSubmit);
 }
