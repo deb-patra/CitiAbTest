@@ -79,7 +79,7 @@ public class EventServiceImpl implements EventService {
 			expId = (Integer) obj.get("exp_id");
 		}
 		if(obj.has("variant_id")) {
-			//variantId = (Integer) obj.get("variant_id");
+			variantId = (Integer) obj.get("variant_id");
 		}
 		if(obj.has("expt_name")) {
 			exptName = (String) obj.get("expt_name");
