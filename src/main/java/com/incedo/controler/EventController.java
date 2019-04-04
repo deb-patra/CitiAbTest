@@ -96,8 +96,9 @@ public class EventController {
     		} else {
     			showNormalHeader(model, "gridwall");
     		}
+    		setMessageAndRecos(model, experimentVariantVo);
     		setModelAttribute(model, experimentVariantVo, userId, pdpPage, "gridwall", "grid_wall", null);
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -129,10 +130,11 @@ public class EventController {
     		} else {
     			showNormalHeader(model, "gridwall");
     		}
+    		setMessageAndRecos(model, experimentVariantVo);
     		setModelAttribute(model, experimentVariantVo, userId, pdpPage, "gridwall", "grid_wall", null);
     		
     		//Create new experiment VO
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
     		
     		// Push new event
     		eventService.pushNewEvent(eventSubmit);
@@ -159,7 +161,7 @@ public class EventController {
     			showNormalHeader(model, "pdp");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, upgradeLine, "pdp", "pdp", "/getGridwallPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "pdp");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "pdp");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -183,7 +185,7 @@ public class EventController {
     			showNormalHeader(model, "upgrade");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, deviceSelection, "upgrade", "upgradeline", "/getPdpPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "upgradeline");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "upgradeline");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -208,7 +210,7 @@ public class EventController {
     			showNormalHeader(model, "deviceselection");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, protection, "deviceselection", "deviceselection", "/getUpgradePage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "deviceselection");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "deviceselection");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -233,7 +235,7 @@ public class EventController {
     			showNormalHeader(model, "protection");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, accessoryBundle, "protection", "protection", "/getDeviceSelectionPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "protection");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "protection");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -257,7 +259,7 @@ public class EventController {
     			showNormalHeader(model, "accessorybundle");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, offerPage, "accessorybundle", "acessorybundle", "/getProtectionPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "acessorybundle");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "acessorybundle");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -281,7 +283,7 @@ public class EventController {
     			showNormalHeader(model, "offerpage");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, cartPage, "offerpage", "offer", "/getAccessoryBundlePage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "offer");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "offer");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -305,7 +307,7 @@ public class EventController {
     			showNormalHeader(model, "cart");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, checkoutPage, "cart", "cart","/getOfferPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "cart");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "cart");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -329,7 +331,7 @@ public class EventController {
     			showNormalHeader(model, "checkout");
     		}
     		setModelAttribute(model, experimentVariantVo, userId, null, "checkout", "checkout", "/getCartPage/");
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "checkout");
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "checkout");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
@@ -390,4 +392,21 @@ public class EventController {
         	}
         }
     }
+    public void setMessageAndRecos(Model model, ExperimentVariantVo experimentVariantVo) {
+    	String variantToken = experimentVariantVo.getVariantToken();
+    	if(!StringUtils.isEmpty(variantToken)) {
+    		if("message_var1".equalsIgnoreCase(variantToken)) {
+    			model.addAttribute("eventColor", "Message_123");
+    		} else if("message_var2".equalsIgnoreCase(variantToken)) {
+    			model.addAttribute("eventColor", "Message_456");
+    		} else if("message_var3".equalsIgnoreCase(variantToken)) {
+    			model.addAttribute("eventColor", "Message_789");
+    		} else if("recos_2".equalsIgnoreCase(variantToken)) {
+    			model.addAttribute("eventColor", "recos2");
+    		} else if("recos_3".equalsIgnoreCase(variantToken)) {
+    			model.addAttribute("eventColor", "recos3");
+    		}
+    	}
+    }
+    
 }

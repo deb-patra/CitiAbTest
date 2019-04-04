@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.uuid.Generators;
@@ -78,7 +79,7 @@ public class EventServiceImpl implements EventService {
 			expId = (Integer) obj.get("exp_id");
 		}
 		if(obj.has("variant_id")) {
-			variantId = (Integer) obj.get("variant_id");
+			//variantId = (Integer) obj.get("variant_id");
 		}
 		if(obj.has("expt_name")) {
 			exptName = (String) obj.get("expt_name");
@@ -176,7 +177,7 @@ public class EventServiceImpl implements EventService {
 	}
 	
 	@Override
-	public EventSubmitRequestVO incedoEvent(String userId, int variantId, int expId, String layerId, String channelId, String stage) {
+	public EventSubmitRequestVO incedoEvent(String userId, String variantToken, int variantId, int expId, String layerId, String channelId, String stage) {
 		int channelIdPush = Integer.parseInt(channelId);
 		int layerIdPush = Integer.parseInt(layerId);
 		UUID uuid = Generators.timeBasedGenerator().generate();
@@ -184,6 +185,9 @@ public class EventServiceImpl implements EventService {
 		eventSubmit.setUser_id(userId);
 		eventSubmit.setEvt_id(uuid.toString());
 		eventSubmit.setVariant_id(variantId);
+		if(!StringUtils.isEmpty(variantToken) && (variantToken.contains("control") || variantToken.contains("Control"))) {
+			expId = -1;
+		} 
 		eventSubmit.setExp_id(expId);
 		eventSubmit.setLayer_id(layerIdPush);
 		eventSubmit.setChannel_id(channelIdPush);
