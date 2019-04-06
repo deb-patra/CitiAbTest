@@ -146,6 +146,43 @@ public class EventController {
     	
     }
     
+    @RequestMapping("/getRecoPage/{userId}")
+    public String getRecoPage(HttpServletRequest request, @RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent, @PathVariable String userId, Model model) {
+    	if(!StringUtils.isEmpty(userId)) {
+    		// Get experiment variant from service API
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
+    		//experimentVariantVo.setVariantToken("recos");
+    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco")) {
+					model.addAttribute("eventColor", "recos2");
+				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
+					model.addAttribute("eventColor", "gridwall_blue");
+				}
+    		}
+    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+            	model.addAttribute("userId", userId);
+            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
+            	model.addAttribute("expId", experimentVariantVo.getExpId());
+            	model.addAttribute("expName", experimentVariantVo.getExptName());
+            	model.addAttribute("channelName", channelName);
+            	model.addAttribute("layerName", layerName);
+            	model.addAttribute("pageHeading", "gridwall");
+            	model.addAttribute("nextPage", checkoutPage+"/"+userId);
+            }
+    		//Create new experiment VO
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
+    		
+    		// Push new event
+    		eventService.pushNewEvent(eventSubmit);
+    	}else {
+    		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
+    		return "home";
+    	}
+        return "gridwall";
+    	
+    }
+    
+    
     @RequestMapping("/getPdpPage/{userId}")
     public String getPDPPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
     	System.out.println("With in get PDP page details");
