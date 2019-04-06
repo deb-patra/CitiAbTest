@@ -63,6 +63,12 @@ public class EventController {
 	@Value("${channel.id.ui}")
     private String channelName;
 	
+	@Value("${layer.id.reco}")
+    private String layerIdReco;
+	
+	@Value("${layer.id.reco.ui}")
+    private String layerNameReco;
+	
     private final EventService eventService;
     private final EventUtil eventUtilService;
 
@@ -145,43 +151,6 @@ public class EventController {
         return "gridwall";
     	
     }
-    
-    @RequestMapping("/getRecoPage/{userId}")
-    public String getRecoPage(HttpServletRequest request, @RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent, @PathVariable String userId, Model model) {
-    	if(!StringUtils.isEmpty(userId)) {
-    		// Get experiment variant from service API
-    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		//experimentVariantVo.setVariantToken("recos");
-    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco")) {
-					model.addAttribute("eventColor", "recos2");
-				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
-					model.addAttribute("eventColor", "gridwall_blue");
-				}
-    		}
-    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-            	model.addAttribute("userId", userId);
-            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
-            	model.addAttribute("expId", experimentVariantVo.getExpId());
-            	model.addAttribute("expName", experimentVariantVo.getExptName());
-            	model.addAttribute("channelName", channelName);
-            	model.addAttribute("layerName", layerName);
-            	model.addAttribute("pageHeading", "gridwall");
-            	model.addAttribute("nextPage", checkoutPage+"/"+userId);
-            }
-    		//Create new experiment VO
-    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "grid_wall");
-    		
-    		// Push new event
-    		eventService.pushNewEvent(eventSubmit);
-    	}else {
-    		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
-    		return "home";
-    	}
-        return "gridwall";
-    	
-    }
-    
     
     @RequestMapping("/getPdpPage/{userId}")
     public String getPDPPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
@@ -369,6 +338,73 @@ public class EventController {
     		}
     		setModelAttribute(model, experimentVariantVo, userId, null, "checkout", "checkout", "/getCartPage/");
     		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerId, channelId, "checkout");
+    		eventService.pushNewEvent(eventSubmit);
+    	}else {
+    		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
+    		return "home";
+    	}
+        return "checkout";
+    }
+    
+    @RequestMapping("/getRecoPage/{userId}")
+    public String getRecoPage(HttpServletRequest request, @RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent, @PathVariable String userId, Model model) {
+    	if(!StringUtils.isEmpty(userId)) {
+    		// Get experiment variant from service API
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
+    		//experimentVariantVo.setVariantToken("recos");
+    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco")) {
+					model.addAttribute("eventColor", "recos2");
+				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
+					model.addAttribute("eventColor", "gridwall_blue");
+				}
+    		}
+    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+            	model.addAttribute("userId", userId);
+            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
+            	model.addAttribute("expId", experimentVariantVo.getExpId());
+            	model.addAttribute("expName", experimentVariantVo.getExptName());
+            	model.addAttribute("channelName", channelName);
+            	model.addAttribute("layerName", layerNameReco);
+            	model.addAttribute("pageHeading", "gridwall");
+            	model.addAttribute("nextPage", "/getRecoCheckoutPage"+"/"+userId);
+            }
+    		//Create new experiment VO
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerIdReco, channelId, "grid_wall");
+    		
+    		// Push new event
+    		eventService.pushNewEvent(eventSubmit);
+    	}else {
+    		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
+    		return "home";
+    	}
+        return "gridwall";
+    	
+    }
+    
+    
+    @RequestMapping("/getRecoCheckoutPage/{userId}")
+    public String getRecoCheckoutPage(@RequestHeader(value="User-Agent", defaultValue="mobile") String userAgent,@PathVariable String userId, Model model) {
+    	System.out.println("With in get checkout details");
+    	if(!StringUtils.isEmpty(userId)) {
+    		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
+    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco")) {
+					model.addAttribute("eventColor", "recos2");
+				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
+					model.addAttribute("eventColor", "checkout_blue");
+				}
+    		}
+    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+            	model.addAttribute("userId", userId);
+            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
+            	model.addAttribute("expId", experimentVariantVo.getExpId());
+            	model.addAttribute("expName", experimentVariantVo.getExptName());
+            	model.addAttribute("channelName", channelName);
+            	model.addAttribute("layerName", layerNameReco);
+            	model.addAttribute("pageHeading", "checkout");
+            }
+    		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerIdReco, channelId, "checkout");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
     		model.addAttribute("error", "Missing User Id. Please provide User Id to proceed further.");
