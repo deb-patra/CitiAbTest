@@ -29,7 +29,7 @@ set +x
 echo 'The following command will kill previously running process'
 echo 'Restarting tomcat application server.'
 set -x
-sudo /etc/init.d/tomcat8  restart && sudo tail -f /var/log/tomcat8/catalina.out
+sudo /etc/init.d/tomcat8  restart
 set +x
 
 # echo 'The following command runs and outputs the execution of your Java'
