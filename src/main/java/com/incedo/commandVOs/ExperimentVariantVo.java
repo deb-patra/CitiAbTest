@@ -13,7 +13,33 @@ public class ExperimentVariantVo {
 	private int variantId;
 	private int expId;
 	private String exptName;
+	private String channelName;
+	private String layerName;
 	
+	/**
+	 * @return the channelName
+	 */
+	public String getChannelName() {
+		return channelName;
+	}
+	/**
+	 * @param channelName the channelName to set
+	 */
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
+	}
+	/**
+	 * @return the layerName
+	 */
+	public String getLayerName() {
+		return layerName;
+	}
+	/**
+	 * @param layerName the layerName to set
+	 */
+	public void setLayerName(String layerName) {
+		this.layerName = layerName;
+	}
 	/**
 	 * @return the exptName
 	 */

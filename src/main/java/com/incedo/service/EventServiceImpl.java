@@ -34,6 +34,12 @@ public class EventServiceImpl implements EventService {
 	 @Value("${postevent.api.url}")
      private String postEventserviceApi;
 	 
+	 @Value("${layer.id.ui}")
+	 private String layerNameConfig;
+		
+	@Value("${channel.id.ui}")
+    private String channelNameConfig;
+		
 	@Override
 	public ExperimentVariantVo getEventJsonFromServiceAPI(String userId, String layerId, String channelId) {
 		//log.debug("EventServiceImpl : getEventId : userId - "+userId);
@@ -66,6 +72,8 @@ public class EventServiceImpl implements EventService {
 		String variantToken = null;
 		String exptName = null;
 		String bucket = null;
+		String layerName = null;
+		String channelName = null;
 		int expId = 1;
 		int variantId = 0;
 		JSONObject obj = new JSONObject(jsonString);
@@ -84,12 +92,20 @@ public class EventServiceImpl implements EventService {
 		if(obj.has("expt_name")) {
 			exptName = (String) obj.get("expt_name");
 		}
+		if(obj.has("layer_name")) {
+			layerName = (String) obj.get("layer_name");
+		}
+		if(obj.has("channel_name")) {
+			channelName = (String) obj.get("channel_name");
+		}
 		ExperimentVariantVo experimentVariantVo = new ExperimentVariantVo();
 		experimentVariantVo.setBucket(bucket);
 		experimentVariantVo.setVariantToken(variantToken);
 		experimentVariantVo.setExpId(expId);
 		experimentVariantVo.setVariantId(variantId);
 		experimentVariantVo.setExptName(exptName);
+		experimentVariantVo.setLayerName(StringUtils.isEmpty(layerName)?layerNameConfig:layerName);
+		experimentVariantVo.setChannelName(StringUtils.isEmpty(channelName)?channelNameConfig:channelName);
 		return experimentVariantVo;
 	}
 
