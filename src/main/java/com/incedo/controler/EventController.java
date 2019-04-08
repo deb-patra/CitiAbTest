@@ -368,13 +368,7 @@ public class EventController {
     	System.out.println("With in get checkout details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
-    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco") || experimentVariantVo.getVariantToken().toLowerCase().contains("life_style")) {
-					model.addAttribute("eventColor", "recos3");
-				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
-					model.addAttribute("eventColor", "recos2");
-				}
-    		}
+    		model.addAttribute("eventColor", "checkout_blue");
     		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
             	model.addAttribute("userId", userId);
             	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
