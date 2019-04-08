@@ -93,9 +93,9 @@ public class EventController {
     	String userId = request.getParameter("userId");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "gridwall");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "gridwall");
     		} else {
     			showNormalHeader(model, "gridwall");
@@ -125,10 +125,10 @@ public class EventController {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
     		
     		// Display header info
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "gridwall");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_BLUE_EXP")) {
-    			showBlueHeader(model, "gridwall");
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    			showRedHeader(model, "gridwall");
     		} else {
     			showNormalHeader(model, "gridwall");
     		}
@@ -153,9 +153,9 @@ public class EventController {
     	System.out.println("With in get PDP page details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "pdp");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "pdp");
     		} else {
     			showNormalHeader(model, "pdp");
@@ -175,9 +175,9 @@ public class EventController {
     	System.out.println("With in get upgrade line page details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "upgrade");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "upgrade");
     		} else {
     			showNormalHeader(model, "upgrade");
@@ -198,9 +198,9 @@ public class EventController {
     	
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "deviceselection");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "deviceselection");
     		} else {
     			showNormalHeader(model, "deviceselection");
@@ -221,9 +221,9 @@ public class EventController {
     	System.out.println("With in get protection page details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "protection");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "protection");
     		} else {
     			showNormalHeader(model, "protection");
@@ -243,9 +243,9 @@ public class EventController {
     	System.out.println("With in get accessory bundle page details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "accessorybundle");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "accessorybundle");
     		} else {
     			showNormalHeader(model, "accessorybundle");
@@ -265,9 +265,9 @@ public class EventController {
     	System.out.println("With in get Offer page details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "offerpage");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "offerpage");
     		} else {
     			showNormalHeader(model, "offerpage");
@@ -287,9 +287,9 @@ public class EventController {
     	System.out.println("With in get cart details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "cart");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "cart");
     		} else {
     			showNormalHeader(model, "cart");
@@ -309,9 +309,9 @@ public class EventController {
     	System.out.println("With in get checkout details");
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerId, channelId);
-    		if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_GREEN_EXP")) {
     			showGreenHeader(model, "checkout");
-    		} else if(eventUtilService.incedoGetExperimentName(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
+    		} else if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("UI_RED_EXP")) {
     			showRedHeader(model, "checkout");
     		} else {
     			showNormalHeader(model, "checkout");
@@ -331,24 +331,16 @@ public class EventController {
     	if(!StringUtils.isEmpty(userId)) {
     		// Get experiment variant from service API
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
-    		//experimentVariantVo.setVariantToken("recos");
-    		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco") || experimentVariantVo.getVariantToken().toLowerCase().contains("life_style")) {
-					model.addAttribute("eventColor", "recos3");
-				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
-					model.addAttribute("eventColor", "recos2");
-				}
+    		
+    		// Show Reco details
+    		if(eventUtilService.incedoGetVariantToken(experimentVariantVo).equalsIgnoreCase("life_style_model1")) {
+    			showLifeStyleModel(model);
+    		} else {
+    			showControlModel(model);
     		}
-    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-            	model.addAttribute("userId", userId);
-            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
-            	model.addAttribute("expId", experimentVariantVo.getExpId());
-            	model.addAttribute("expName", experimentVariantVo.getExptName());
-            	model.addAttribute("channelName", StringUtils.isEmpty(experimentVariantVo.getChannelName())?experimentVariantVo.getChannelName():channelName);
-            	model.addAttribute("layerName", StringUtils.isEmpty(experimentVariantVo.getLayerName())?experimentVariantVo.getLayerName():layerNameReco);
-            	model.addAttribute("pageHeading", "gridwall");
-            	model.addAttribute("nextPage", "/getRecoCheckoutPage"+"/"+userId);
-            }
+    		
+    		setRecoModelAttribute(model, experimentVariantVo, userId, "gridwall", "/getRecoCheckoutPage");
+    		
     		//Create new experiment VO
     		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerIdReco, channelId, "grid_wall");
     		
@@ -369,15 +361,8 @@ public class EventController {
     	if(!StringUtils.isEmpty(userId)) {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
     		model.addAttribute("eventColor", "checkout_blue");
-    		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
-            	model.addAttribute("userId", userId);
-            	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
-            	model.addAttribute("expId", experimentVariantVo.getExpId());
-            	model.addAttribute("expName", experimentVariantVo.getExptName());
-            	model.addAttribute("channelName", StringUtils.isEmpty(experimentVariantVo.getChannelName())?experimentVariantVo.getChannelName():channelName);
-            	model.addAttribute("layerName", StringUtils.isEmpty(experimentVariantVo.getLayerName())?experimentVariantVo.getLayerName():layerNameReco);
-            	model.addAttribute("pageHeading", "checkout");
-            }
+    		setRecoModelAttribute(model, experimentVariantVo, userId, "checkout", null);
+    		
     		EventSubmitRequestVO eventSubmit = eventService.incedoEvent(userId, experimentVariantVo.getVariantToken(), experimentVariantVo.getVariantId(), experimentVariantVo.getExpId(), layerIdReco, channelId, "checkout");
     		eventService.pushNewEvent(eventSubmit);
     	}else {
@@ -418,6 +403,14 @@ public class EventController {
 		model.addAttribute("eventColor", eventColor);
     }
     
+    public void showLifeStyleModel(Model model) {
+    	model.addAttribute("eventColor", "recos3");
+    }
+    
+    public void showControlModel(Model model) {
+    	model.addAttribute("eventColor", "recos2");
+    }
+    
     public void showNormalHeader(Model model, String pageHeading) {
     	showBlueHeader(model, pageHeading);
     }
@@ -437,6 +430,19 @@ public class EventController {
         	if(!StringUtils.isEmpty(previousPage)) {
         		model.addAttribute("previousPage", previousPage+userId);
         	}
+        }
+    }
+    
+    public void setRecoModelAttribute(Model model, ExperimentVariantVo experimentVariantVo, String userId, String pageHeading, String nextPage) {
+    	if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
+        	model.addAttribute("userId", userId);
+        	model.addAttribute("expToken", experimentVariantVo.getVariantToken());
+        	model.addAttribute("expId", experimentVariantVo.getExpId());
+        	model.addAttribute("expName", experimentVariantVo.getExptName());
+        	model.addAttribute("channelName", StringUtils.isEmpty(experimentVariantVo.getChannelName())?experimentVariantVo.getChannelName():channelName);
+        	model.addAttribute("layerName", StringUtils.isEmpty(experimentVariantVo.getLayerName())?experimentVariantVo.getLayerName():layerNameReco);
+        	model.addAttribute("pageHeading", pageHeading);
+        	model.addAttribute("nextPage", nextPage +"/"+userId);
         }
     }
     public void setMessageAndRecos(Model model, ExperimentVariantVo experimentVariantVo) {

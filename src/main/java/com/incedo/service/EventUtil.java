@@ -205,7 +205,7 @@ public class EventUtil {
 		return idMap;
 	}
 	
-	public String incedoGetExperimentName(ExperimentVariantVo experimentVariantVo) {
+	public String incedoGetVariantToken(ExperimentVariantVo experimentVariantVo) {
 		String variantToken = experimentVariantVo.getVariantToken();
 		if(!StringUtils.isEmpty(variantToken)) {
 			if(variantToken.toLowerCase().contains("red")) {
@@ -216,8 +216,11 @@ public class EventUtil {
 				return "UI_BLUE_EXP";
 			}else if(variantToken.toLowerCase().contains("control")) {
 				return "UI_BLUE_EXP";
+			}else if(variantToken.toLowerCase().contains("life_style")) {
+				return "life_style_model1";
 			}
 		}
 		return "UI_BLUE_EXP";
 	}
+	
 }
