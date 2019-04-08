@@ -334,9 +334,9 @@ public class EventController {
     		//experimentVariantVo.setVariantToken("recos");
     		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
 				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco") || experimentVariantVo.getVariantToken().toLowerCase().contains("life_style")) {
-					model.addAttribute("eventColor", "recos2");
+					model.addAttribute("eventColor", "recos3");
 				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
-					model.addAttribute("eventColor", "gridwall_blue");
+					model.addAttribute("eventColor", "recos2");
 				}
     		}
     		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
@@ -370,9 +370,9 @@ public class EventController {
     		ExperimentVariantVo experimentVariantVo = eventService.getEventJsonFromServiceAPI(userId, layerIdReco, channelId);
     		if(null != experimentVariantVo && !StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
 				if(experimentVariantVo.getVariantToken().toLowerCase().contains("reco") || experimentVariantVo.getVariantToken().toLowerCase().contains("life_style")) {
-					model.addAttribute("eventColor", "recos2");
+					model.addAttribute("eventColor", "recos3");
 				} else if(experimentVariantVo.getVariantToken().toLowerCase().toLowerCase().contains("control")) {
-					model.addAttribute("eventColor", "checkout_blue");
+					model.addAttribute("eventColor", "recos2");
 				}
     		}
     		if(!StringUtils.isEmpty(experimentVariantVo.getVariantToken())) {
